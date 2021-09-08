@@ -7,7 +7,7 @@ import * as cors from 'cors'
 import routes from './routes'
 import { DatabaseConfig } from './config'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.TYPEORM_PORT
 // Create a new express application instance
 const app = express()
 // Call midlewares

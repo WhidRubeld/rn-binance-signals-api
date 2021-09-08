@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import * as jwt from 'jsonwebtoken'
-import config from '../config'
 
 export const JwtMiddleware = (
   req: Request,
@@ -19,7 +18,7 @@ export const JwtMiddleware = (
 
   //Try to validate the token and get data
   try {
-    jwtPayload = <any>jwt.verify(token, config.jwtSecret)
+    jwtPayload = <any>jwt.verify(token, process.env.JWT_SECRET)
     res.locals.jwtPayload = jwtPayload
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)

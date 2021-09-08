@@ -3,15 +3,13 @@ import { User } from '../entity'
 
 const config: ConnectionOptions = {
   type: 'postgres',
-  host: process.env.POSTGRES_HOST || 'localhost',
-  port: Number(process.env.POSTGRES_PORT) || 5432,
-  username: process.env.POSTGRES_USER || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'postgres',
-  database: process.env.POSTGRES_DB || 'binance-signals',
+  host: process.env.TYPEORM_HOST,
+  port: Number(process.env.TYPEORM_PORT),
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
+  database: process.env.TYPEORM_DATABASE,
   entities: [User],
-  synchronize: true
+  synchronize: Boolean(process.env.TYPEORM_SYNCHRONIZE)
 }
-
-console.log(config)
 
 export default config

@@ -2,7 +2,6 @@ import { validate } from 'class-validator'
 import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 
-import config from '../config'
 import { User } from '../entity'
 import { createUser, getUserByUsername } from '../repositories'
 
@@ -30,7 +29,7 @@ export class AuthController {
     //Sing JWT, valid for 1 hour
     const token = jwt.sign(
       { userId: user.id, username: user.username },
-      config.jwtSecret,
+      process.env.JWT_SECRET,
       { expiresIn: '30d' }
     )
 
