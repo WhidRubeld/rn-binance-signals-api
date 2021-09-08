@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
-    "@types/body-parser": "^1.19.1",
     "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/helmet": "^4.0.0",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/node": "^8.0.29",
@@ -13,9 +13,11 @@
     "typescript": "3.3.3333"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "@types/bcryptjs": "^2.4.2",
+    "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.1",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.4.0",
@@ -23,6 +25,7 @@
     "typeorm": "0.2.37"
   },
   "scripts": {
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
     "dev": "debug=* NODE_PATH=./src ts-node-dev --respawn ./src/index.ts",
     "build": "rimraf dist && tsc",
     "start": "NODE_PATH=./dist node ./dist/index.js"

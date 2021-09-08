@@ -1,21 +1,26 @@
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
-import { User } from './entity/User'
+import * as express from 'express'
+import * as helmet from 'helmet'
+import * as cors from 'cors'
 
-createConnection()
-  .then(async (connection) => {
-    console.log('Inserting a new user into the database...')
-    const user = new User()
-    user.firstName = 'Timber'
-    user.lastName = 'Saw'
-    user.age = 25
-    await connection.manager.save(user)
-    console.log('Saved a new user with id: ' + user.id)
+import routes from './routes'
+import { DatabaseConfig } from './config'
 
-    console.log('Loading users from the database...')
-    const users = await connection.manager.find(User)
-    console.log('Loaded users: ', users)
-
-    console.log('Here you can setup and run express/koa/any other framework.')
+const PORT = process.env.PORT || 3000
+// Create a new express application instance
+const app = express()
+// Call midlewares
+app.use(express.json())
+app.use(cors())
+app.use(helmet())
+//Set all routes from routes folder
+app.use('/', routes)
+//Connects to the Database -> then starts the express
+createConnection(DatabaseConfig)
+  .then(async (_connection) => {
+    app.listen(PORT, () => {
+      console.log('Server started on port 3000!')
+    })
   })
   .catch((error) => console.log(error))
