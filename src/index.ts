@@ -3,15 +3,13 @@ import { createConnection } from 'typeorm'
 import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
-import expressWs from 'express-ws'
 
 import routes from './routes'
 import { DatabaseConfig } from './config'
 import { echoSocketHandler, launchCandlestickSockets } from './utils'
+import { app } from './constants'
 
 const PORT = process.env.PORT
-// Create a new express application instance
-const app = expressWs(express()).app
 // Call midlewares
 app.use(express.json())
 app.use(cors())

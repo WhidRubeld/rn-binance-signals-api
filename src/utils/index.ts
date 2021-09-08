@@ -1,2 +1,2 @@
 export { launchCandlestickSockets } from './tick.socket'
-export { echoSocketHandler } from './echo.socket'
+export { echoSocketHandler, submitEventHandler } from './echo.socket'

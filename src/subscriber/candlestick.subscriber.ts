@@ -4,6 +4,7 @@ import {
   InsertEvent,
   RemoveEvent
 } from 'typeorm'
+import { submitEventHandler } from '../utils'
 
 @EventSubscriber()
 export class CandlestickSubscriber implements EntitySubscriberInterface<any> {
@@ -12,6 +13,7 @@ export class CandlestickSubscriber implements EntitySubscriberInterface<any> {
    */
   afterInsert(event: InsertEvent<any>) {
     console.log(`AFTER ENTITY INSERTED: `, event.entity)
+    submitEventHandler(event.entity)
   }
   /**
    * Called after entity removal.

@@ -2,7 +2,23 @@ import { classToPlain } from 'class-transformer'
 import { NextFunction, Request } from 'express'
 import { getRepository } from 'typeorm'
 import * as WebSocket from 'ws'
+
 import { Candlestick, Pair } from '../entity'
+import { server } from '../constants'
+
+export const submitEventHandler = async (info: Candlestick) => {
+  const aWss = server.getWss()
+
+  aWss.clients.forEach((client) => {
+    client.send(
+      JSON.stringify({
+        pair: classToPlain(info.pair),
+        interval: info.interval,
+        tick: classToPlain(info)
+      })
+    )
+  })
+}
 
 export const echoSocketHandler = async (
   ws: WebSocket,
