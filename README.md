@@ -1,26 +1,27 @@
 # Awesome Project Build with TypeORM
 
-## Build from source
-
-1. Install dependencies.
-
-   ```sh
-   npm install
-   ```
-
-2. Build the production server.
-
-   ```sh
-   npm build
-   ```
-
-3. Run the server.
-   ```sh
-   npm start
-   ```
-
-## Build Docker image locally
+## Development build
 
 ```sh
-docker build -t express-typescript .
+docker-compose up --force-recreate
 ```
+
+## Production build
+
+```sh
+docker build -t rn-binance-signals .
+```
+
+## Sync schema
+
+```sh
+yarn typeorm schema:sync
+```
+
+## Run migrations
+
+```sh
+yarn typeorm migration:run
+```
+
+[More about typeorm cli](https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md)
