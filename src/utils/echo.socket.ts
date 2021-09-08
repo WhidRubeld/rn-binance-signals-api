@@ -12,6 +12,7 @@ export const submitEventHandler = async (info: Candlestick) => {
   aWss.clients.forEach((client) => {
     client.send(
       JSON.stringify({
+        type: 'add',
         pair: classToPlain(info.pair),
         interval: info.interval,
         tick: classToPlain(info)
