@@ -8,8 +8,10 @@ docker-compose up --force-recreate
 
 ## Production build
 
+Change docker file in docker-compose.yaml
+
 ```sh
-docker build -t rn-binance-signals .
+docker-compose up --build --force-recreate -d
 ```
 
 ## Sync schema
