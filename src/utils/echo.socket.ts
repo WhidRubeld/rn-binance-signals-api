@@ -23,7 +23,11 @@ export const echoSocketHandler = async (
         where: {
           pair,
           interval: '4h'
-        }
+        },
+        order: {
+          closeTime: 'DESC'
+        },
+        take: 25
       })
 
       ws.send(
