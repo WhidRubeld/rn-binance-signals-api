@@ -19,8 +19,8 @@ export class UserController {
   static changePassword = async (req: Request, res: Response) => {
     const id = res.locals.jwtPayload.userId
 
-    const { old_password, new_password } = req.body
-    if (!(old_password && new_password)) {
+    const { oldPassword, newPassword } = req.body
+    if (!(oldPassword && newPassword)) {
       res.status(400).send()
     }
 
@@ -30,12 +30,12 @@ export class UserController {
       return
     }
 
-    if (!user.checkIfUnencryptedPasswordIsValid(old_password)) {
+    if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
       res.status(401).send()
       return
     }
 
-    user.password = new_password
+    user.password = newPassword
     const errors = await validate(user)
     if (errors.length > 0) {
       res.status(400).send(errors)
