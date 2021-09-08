@@ -1,0 +1,31 @@
+{
+  "records" : [
+    {
+      "data" : {
+        "id" : "86076A1D-3864-44EE-94D0-D094878A14DC"
+      },
+      "type" : "com.lostmoa.record.type.Root",
+      "version" : 0
+    },
+    {
+      "data" : {
+        "body" : null,
+        "headers" : [
+
+        ],
+        "id" : "47815892-CAD8-464B-BD09-3082D4937DE4",
+        "method" : "GET",
+        "order" : 0,
+        "parent" : "86076A1D-3864-44EE-94D0-D094878A14DC",
+        "query" : [
+
+        ],
+        "scheme" : "WS",
+        "url" : "localhost:3000\/echo"
+      },
+      "type" : "com.lostmoa.record.type.WSRequest",
+      "version" : 3
+    }
+  ],
+  "version" : 1
+}
