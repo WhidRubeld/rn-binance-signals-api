@@ -17,14 +17,6 @@ app.use(helmet())
 //Set all routes from routes folder
 app.use('/', routes)
 
-app.use(function (req, res, next) {
-  res.status(404)
-  res.json({
-    message: 'Not found'
-  })
-  return
-})
-
 //Connects to the Database -> then starts the express
 createConnection(DatabaseConfig)
   .then(async (_connection) => {
