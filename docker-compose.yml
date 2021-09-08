@@ -16,7 +16,7 @@ services:
     volumes:
       - ./src:/app/src
     ports:
-      - '3000:3000'
+      - '${PORT}:3000'
     depends_on:
       - db
     environment:
@@ -27,3 +27,6 @@ services:
       TYPEORM_PORT: ${TYPEORM_PORT}
       TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZ}
       TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRE: ${JWT_EXPIRE}

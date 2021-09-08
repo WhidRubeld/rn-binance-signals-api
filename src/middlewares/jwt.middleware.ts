@@ -29,8 +29,8 @@ export const JwtMiddleware = (
   // The token is valid for 30 days
   // We want to send a new token on every request
   // const { userId, username } = jwtPayload
-  // const newToken = jwt.sign({ userId, username }, config.jwtSecret, {
-  //   expiresIn: '30d'
+  // const newToken = jwt.sign({ userId, username }, process.env.JWT_SECRET, {
+  //   expiresIn: process.env.JWT_EXPIRE
   // })
   // res.setHeader('token', newToken)
 

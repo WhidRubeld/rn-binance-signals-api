@@ -1,7 +1,26 @@
 # Awesome Project Build with TypeORM
 
-Steps to run this project:
+## Build from source
 
-1. Run `npm i` or `yarn` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` or `yarn start` command
+1. Install dependencies.
+
+   ```sh
+   npm install
+   ```
+
+2. Build the production server.
+
+   ```sh
+   npm build
+   ```
+
+3. Run the server.
+   ```sh
+   npm start
+   ```
+
+## Build Docker image locally
+
+```sh
+docker build -t express-typescript .
+```
