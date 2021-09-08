@@ -7,14 +7,15 @@ const pairs = data.map((v) => {
   pair.symbol = v.symbol
   return pair
 })
-const pairRepository = getRepository(Pair)
 
 export class firstPairs1631100413918 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    const pairRepository = getRepository(Pair)
     await pairRepository.save(pairs)
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    const pairRepository = getRepository(Pair)
     await pairRepository.remove(pairs)
   }
 }

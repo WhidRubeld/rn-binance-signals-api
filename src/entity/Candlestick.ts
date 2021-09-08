@@ -1,3 +1,4 @@
+import { IsDate } from 'class-validator'
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -17,37 +18,39 @@ export class Candlestick {
   @Column()
   interval: _interval
 
-  @Column()
-  time: number
+  @Column('timestamp')
+  @IsDate()
+  time: Date
 
-  @Column()
+  @Column('float')
   open: number
 
-  @Column()
+  @Column('float')
   high: number
 
-  @Column()
+  @Column('float')
   low: number
 
-  @Column()
+  @Column('float')
   close: number
 
-  @Column()
+  @Column('float')
   volume: number
 
-  @Column()
-  closeTime: number
+  @Column('timestamp')
+  @IsDate()
+  closeTime: Date
 
-  @Column()
+  @Column('float')
   assetVolume: number
 
   @Column()
   trades: number
 
-  @Column()
+  @Column('float')
   buyBaseVolume: number
 
-  @Column()
+  @Column('float')
   buyAssetVolume: number
 
   @Column()
