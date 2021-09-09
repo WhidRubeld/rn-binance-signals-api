@@ -5,12 +5,14 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne
+  ManyToOne,
+  Unique
 } from 'typeorm'
 import { _interval } from '../interfaces'
 import { Pair } from './Pair'
 
 @Entity()
+@Unique(['pair', 'interval', 'closeTime'])
 export class Candlestick {
   @PrimaryGeneratedColumn()
   id: number
@@ -58,6 +60,9 @@ export class Candlestick {
 
   @ManyToOne(() => Pair, (pair) => pair.candlesticks)
   pair: Pair
+
+  @Column()
+  closed: boolean
 
   @Column()
   @CreateDateColumn()

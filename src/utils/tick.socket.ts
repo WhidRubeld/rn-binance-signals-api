@@ -54,6 +54,7 @@ export const convertKline = (
   instance.volume = parseFloat(volume)
   instance.closeTime = new Date(closeTime)
   instance.assetVolume = parseFloat(assetVolume)
+  instance.closed = true
   instance.trades = trades
   instance.buyBaseVolume = parseFloat(buyBaseVolume)
   instance.buyAssetVolume = parseFloat(buyAssetVolume)
@@ -69,9 +70,9 @@ export const launchCandlestickSockets = async () => {
   try {
     await candlestickRepository.clear()
     const pairs = await pairRepository.find()
-    console.log(pairs)
+
     for (const pair of pairs) {
-      binance.candlesticks(
+      await binance.candlesticks(
         pair.symbol,
         INTERVAL,
         async (error, ticks) => {
@@ -102,36 +103,57 @@ export const launchCandlestickSockets = async () => {
           l: low,
           v: volume,
           n: trades,
-          x: isThisKlineClosed,
+          x: closed,
           q: assetVolume,
           V: buyBaseVolume,
           Q: buyAssetVolume,
           B: ignored
         } = ticks
 
-        // когда период закрыт
-        if (isThisKlineClosed) {
-          const pair = new Pair()
-          pair.symbol = symbol
+        const pair = new Pair()
+        pair.symbol = symbol
 
-          const instance = new Candlestick()
-          instance.pair = pair
-          instance.interval = INTERVAL
-          instance.time = new Date(time)
-          instance.open = parseFloat(open)
-          instance.high = parseFloat(high)
-          instance.low = parseFloat(low)
-          instance.close = parseFloat(close)
-          instance.volume = parseFloat(volume)
-          instance.closeTime = new Date(closeTime)
-          instance.assetVolume = parseFloat(assetVolume)
-          instance.trades = trades
-          instance.buyBaseVolume = parseFloat(buyBaseVolume)
-          instance.buyAssetVolume = parseFloat(buyAssetVolume)
-          instance.ignored = parseFloat(ignored)
-
-          candlestickRepository.save(instance)
-        }
+        candlestickRepository
+          .findOne({
+            where: { pair, interval: INTERVAL, closeTime: new Date(closeTime) }
+          })
+          .then((instance) => {
+            if (instance) {
+              instance.pair = pair
+              instance.interval = INTERVAL
+              instance.time = new Date(time)
+              instance.open = parseFloat(open)
+              instance.high = parseFloat(high)
+              instance.low = parseFloat(low)
+              instance.close = parseFloat(close)
+              instance.volume = parseFloat(volume)
+              instance.closeTime = new Date(closeTime)
+              instance.assetVolume = parseFloat(assetVolume)
+              instance.trades = trades
+              instance.closed = closed
+              instance.buyBaseVolume = parseFloat(buyBaseVolume)
+              instance.buyAssetVolume = parseFloat(buyAssetVolume)
+              instance.ignored = parseFloat(ignored)
+              candlestickRepository.save(instance)
+            } else {
+              const tick = new Candlestick()
+              tick.pair = pair
+              tick.interval = INTERVAL
+              tick.time = new Date(time)
+              tick.open = parseFloat(open)
+              tick.high = parseFloat(high)
+              tick.low = parseFloat(low)
+              tick.close = parseFloat(close)
+              tick.volume = parseFloat(volume)
+              tick.closeTime = new Date(closeTime)
+              tick.assetVolume = parseFloat(assetVolume)
+              tick.trades = trades
+              tick.buyBaseVolume = parseFloat(buyBaseVolume)
+              tick.buyAssetVolume = parseFloat(buyAssetVolume)
+              tick.ignored = parseFloat(ignored)
+              candlestickRepository.save(tick)
+            }
+          })
       }
     )
   } catch (e) {

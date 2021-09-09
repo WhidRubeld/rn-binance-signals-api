@@ -6,13 +6,13 @@ import * as WebSocket from 'ws'
 import { Candlestick, Pair } from '../entity'
 import { server } from '../constants'
 
-export const submitEventHandler = async (info: Candlestick) => {
+export const submitEventHandler = async (info: any, type: string) => {
   const aWss = server.getWss()
 
   aWss.clients.forEach((client) => {
     client.send(
       JSON.stringify({
-        type: 'add',
+        type: type,
         pair: classToPlain(info.pair),
         interval: info.interval,
         tick: classToPlain(info)
