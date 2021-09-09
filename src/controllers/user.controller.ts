@@ -43,8 +43,8 @@ export class UserController {
     }
 
     user.hashPassword()
-    updateUser(user)
+    const response = await updateUser(user)
 
-    res.status(204).send()
+    res.status(200).send(responseUser(response))
   }
 }
