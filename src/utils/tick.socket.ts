@@ -148,6 +148,7 @@ export const launchCandlestickSockets = async () => {
               tick.closeTime = new Date(closeTime)
               tick.assetVolume = parseFloat(assetVolume)
               tick.trades = trades
+              tick.closed = closed
               tick.buyBaseVolume = parseFloat(buyBaseVolume)
               tick.buyAssetVolume = parseFloat(buyAssetVolume)
               tick.ignored = parseFloat(ignored)
